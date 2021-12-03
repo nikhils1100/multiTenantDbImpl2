@@ -3,7 +3,7 @@ package com.multiTenantDbImpl2.config;
 import org.springframework.context.annotation.Configuration;
 
 public class DbContextHolder {
-    private static String DEFAULT_TENANT_ID = "tenant_book_default";
+    private static String DEFAULT_TENANT_ID = "persistence-tenant_book_default";
     private static final ThreadLocal<String> contextHolder = new ThreadLocal<>();
 
     static{

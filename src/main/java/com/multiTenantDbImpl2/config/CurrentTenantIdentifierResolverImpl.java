@@ -9,7 +9,6 @@ public class CurrentTenantIdentifierResolverImpl implements CurrentTenantIdentif
 
     @Override
     public String resolveCurrentTenantIdentifier() {
-        //DbContextHolder.setCurrentDb(DEFAULT_TENANT_ID);
         String tenant = DbContextHolder.getCurrentDb();
         if(tenant==null)
             tenant = DEFAULT_TENANT_ID;

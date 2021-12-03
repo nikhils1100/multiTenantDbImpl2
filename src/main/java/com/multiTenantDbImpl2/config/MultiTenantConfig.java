@@ -57,7 +57,7 @@ public class MultiTenantConfig {
             @Qualifier("currentTenantIdentifierResolver")
                 CurrentTenantIdentifierResolver tenantResolver) {
         final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-        //em.setDataSource(userDataSource(tenantName)); // Option to switch ds
+        //em.setDataSource(userDataSource(tenantName)); // Option to switch ds. No longer using this function to update DS properties
         em.setPackagesToScan("com.multiTenantDbImpl2.repository.model");
 
         final HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
@@ -79,13 +79,12 @@ public class MultiTenantConfig {
     public DataSource userDataSource() {
         String tenantName = "";
         if(tenantName.isEmpty() || tenantName.isBlank())
-            tenantName = "tenant_book_default";
-        String tenantPrefix = "persistence-".concat(tenantName);
+            tenantName = "persistence-tenant_book_default";
 
         return DataSourceBuilder.create()
-                .username(env.getProperty(tenantPrefix.concat(".username")))
-                .password(env.getProperty(tenantPrefix.concat(".password")))
-                .url(env.getProperty(tenantPrefix.concat(".url")))
+                .username(env.getProperty(tenantName.concat(".username")))
+                .password(env.getProperty(tenantName.concat(".password")))
+                .url(env.getProperty(tenantName.concat(".url")))
                 .driverClassName(env.getProperty("spring.datasource.driver-class-name"))
                 .build();
     }
